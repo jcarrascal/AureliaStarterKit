@@ -1,10 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <title>Aurelia</title>
 </head>
-<body>
-    Hello, world!
+<body aurelia-app="src/main">
+    <script src="scripts/system.js"></script>
+    <script src="scripts/config-typescript.js"></script>
+    <script src="scripts/aurelia-core.min.js"></script>
+    <script>
+        System.import('aurelia-bootstrapper');
+    </script>
 </body>
 </html>
