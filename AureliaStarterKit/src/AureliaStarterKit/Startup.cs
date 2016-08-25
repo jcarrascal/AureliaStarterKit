@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace AureliaStarterKit
 {
@@ -16,6 +17,7 @@ namespace AureliaStarterKit
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDirectoryBrowser();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,15 +25,33 @@ namespace AureliaStarterKit
         {
             loggerFactory.AddConsole();
 
+            app.Use(async (context, next) =>
+            {
+                // Enable routing on reload.
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/";
+                    await next();
+                }
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDefaultFiles();
             }
 
-            app.Run(async (context) =>
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".glsl"] = "text/plain";
+            app.UseStaticFiles(new StaticFileOptions
             {
-                await context.Response.WriteAsync("Hello World!");
+                ContentTypeProvider = provider
             });
+            if (env.IsDevelopment())
+            {
+                app.UseDirectoryBrowser();
+            }
         }
     }
 }
