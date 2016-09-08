@@ -25,16 +25,10 @@ namespace AureliaStarterKit
         {
             loggerFactory.AddConsole();
 
-            app.Use(async (context, next) =>
+            if (env.IsDevelopment())
             {
-                // Enable routing on reload.
-                await next();
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = "/";
-                    await next();
-                }
-            });
+                app.UseDeveloperExceptionPage();
+            }
 
             if (env.IsDevelopment())
             {

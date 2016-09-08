@@ -7,7 +7,7 @@
 
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>5edde7b5-bb86-4f05-991f-f0af985a4459</ProjectGuid>
+    <ProjectGuid>55bd10e9-99ee-4003-9126-3e09b4f0bbfd</ProjectGuid>
     <RootNamespace>AureliaStarterKit</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
